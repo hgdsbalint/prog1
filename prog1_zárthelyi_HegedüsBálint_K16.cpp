@@ -5,56 +5,67 @@
 
 using namespace std;
 
-void fibonacci(int a, int b){
-    int osszeg = 0;
-    int szam1 = 0;
-    int szam2 = 1;
-    int max = 0;
-    for(int i = 1; i <= b-2; i++){
-        osszeg = szam1 + szam2;
-        szam1 = szam2;
-        szam2 = osszeg;
-        cout << osszeg << " ";
-        //
-        cout << b << endl;
-        if(b < osszeg){
-            max = osszeg;
-        }
-    }
-    cout << max << endl;;
+int fibonacci(int n) {
+  if (n <= 1) {
+    return n;
+  }
+  return fibonacci(n-1) + fibonacci(n-2);
 }
-void atlag(int tomb[4][4]){
-    double tomb2[4];
+
+int maxFibonacci(int a, int b) {
+  int n = 0;
+  int fibN = fibonacci(n);
+  int maxFib = 0;
+  while (fibN <= b) {
+    if (fibN >= a) {
+      maxFib = fibN;
+      n++;
+      fibN = fibonacci(n);
+    } else {
+      n++;
+      fibN = fibonacci(n);
+    }
+  }
+  return maxFib;
+}
+double* atlag(int tomb[4][4]){
+    double* tomb2 = new double[4];
     int j;
     int osszeg = 0;
-    double atlag;
     for(int i = 0; i < 4; i++){
         osszeg = 0;
         for(j = 0; j < 4; j++){
             osszeg = osszeg + tomb[i][j];
         }
-        atlag = (double)osszeg/4;
-        tomb2[i] = atlag;
+        tomb2[i]= (double)osszeg/4;
     }
-    for(int i = 0; i < 4; i++){
-        cout << tomb2[i] << " ";
-    }
-    cout << endl;
+    return tomb2;
 }
-void csere(char a, char tomb3[10], int b){
-    a = tomb3[b-1];
-    cout << a << endl;;
+void csere(int& szam2, char tomb3[10], int kar){
+    szam2 = tomb3[kar-1];
 }
 class Doboz{
 public:
     int szelesseg;
     int magassag;
     int melyseg;
+
+        Doboz(int szeles, int magas, int mely)
+        {
+            this->szelesseg = szeles;
+            this->magassag = magas;
+            this->melyseg = mely;
+        }
+        ~Doboz()
+        {
+
+        }
 };
 
 int main(){
-    cout << "1es feladat" << endl;
-    fibonacci(5, 21);
+    cout << "1es feladat---------" << endl;
+    int maxFib = maxFibonacci(10, 100);
+    cout << "A legnagyobb Fibonacci szam: " << maxFib << endl;
     int tomb[4][4] = {{4,5,6,7},
                     {5,9,7,5},
                     {3,1,9,8},
@@ -64,63 +75,56 @@ int main(){
             cout << tomb[i][j] ;
         }
     }*/
-    cout << "2es feladat" << endl;;
-    atlag(tomb);
-    cout << "3as feladat" << endl;
+    cout << "2es feladat-----------" << endl;
+
+    double* tomb2 = atlag(tomb);
+
+    for(int i=0; i <4; i++){
+        cout << tomb2[i] << endl;;
+    }
+    //cout << atlag(tomb) << endl;
+
+    cout << "3as feladat----------" << endl;
     char tomb3[10] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'};
-    csere(' ', tomb3, 5);
+    int szam2 = 0;
+    int kar= 5;
+    csere(szam2, tomb3, kar);
+    cout << kar << endl;
     //4
     /*int szam2;
     cin >> szam2;*/
-    cout << "5os feladat" << endl;
+    cout << "5os feladat-------" << endl;
     //5
+    Doboz a(10, 30, 1);
+    Doboz b(10, 31, 1);
+    Doboz c(10, 29, 1);
+    Doboz d(10, 28, 1);
+    Doboz e(10, 32, 1);
+
     vector<Doboz> dobozok;
+    dobozok.push_back(a);
+    dobozok.push_back(b);
+    dobozok.push_back(c);
+    dobozok.push_back(d);
+    dobozok.push_back(e);
 
-    Doboz d1;
-    d1.szelesseg = 50;
-    d1.magassag = 60;
-    d1.melyseg = 40;
-    dobozok.push_back(d1);
-
-    Doboz d4;
-    d4.szelesseg = 60;
-    d4.magassag = 90;
-    d4.melyseg = 70;
-    dobozok.push_back(d4);
-
-    Doboz d2;
-    d2.szelesseg = 30;
-    d2.magassag = 40;
-    d2.melyseg = 47;
-    dobozok.push_back(d2);
-
-    Doboz d3;
-    d3.szelesseg = 20;
-    d3.magassag = 90;
-    d3.melyseg = 40;
-    dobozok.push_back(d3);
-
-    Doboz d5;
-    d5.szelesseg = 50;
-    d5.magassag = 70;
-    d5.melyseg = 30;
-    dobozok.push_back(d5);
-
-    int magassag;
+    int magassag = 0;
 
     for(Doboz m: dobozok){
 
         magassag = magassag + m.magassag;
 }
-    cout << "magassaga :" << magassag << endl;
-    //6
-    cout << "6os feladat" << endl;
+    cout << "magassaga : " << magassag << endl;
+    cout << "6os feladat------------" << endl;
     ifstream file("randomok.txt");
     vector<int> szamok;
     int szam;
     int osszeg = 0;
     double atlag;
     int random[5];
+    ofstream kicsi;
+    kicsi.open("kisebb.txt");
+    vector<string> igha;
     for (int i = 0; i < 5; i++)
     {
         osszeg = 0;
@@ -131,21 +135,23 @@ int main(){
             cout << szam << " ";
         }
         atlag = (double)osszeg/5;
-        cout << atlag;
+        cout << atlag << endl;
         if(atlag < 37){
-            cout << "Igen\n";
+            igha.push_back("Igen\n");
         }
         else{
-            cout << "Nem\n";
+            igha.push_back("Nem\n");
         }
-        fstream kicsi("kisebb.txt");
-        if(file.is_open() && atlag > 37){
+        /*if(file.is_open() && atlag > 37){
             kicsi << "Igen\n";
         }
         if(file.is_open() && atlag <= 37){
             kicsi << "Nem\n";
         }
-        cout << endl;
+        cout << endl;*/
     }
+    for(string i: igha){
+        kicsi << i;
+        }
     file.close();
 }
