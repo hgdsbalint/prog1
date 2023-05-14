@@ -41,8 +41,8 @@ double* atlag(int tomb[4][4]){
     }
     return tomb2;
 }
-void csere(int& szam2, char tomb3[10], int kar){
-    szam2 = tomb3[kar-1];
+void csere(char& m, char tomb3[10], int kar){
+    m = tomb3[kar-1];
 }
 class Doboz{
 public:
@@ -86,10 +86,9 @@ int main(){
 
     cout << "3as feladat----------" << endl;
     char tomb3[10] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'};
-    int szam2 = 0;
-    int kar= 5;
-    csere(szam2, tomb3, kar);
-    cout << kar << endl;
+    char m = 's';
+    csere(m, tomb3, 5);
+    cout << m << endl;
     //4
     /*int szam2;
     cin >> szam2;*/
